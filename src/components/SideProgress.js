@@ -2,30 +2,42 @@ import React, { PureComponent } from 'react';
 import { fadeInLeft, fadeIn } from 'react-animations';
 import styled, { keyframes } from 'styled-components';
 import * as palette from '../../config/Style';
+import { nPages, progress } from '../utils/constants';
+import { progressToObj } from '../utils/utils';
 
 export default class SideProgress extends PureComponent {
   state = {
-    progress: [
-      { title: 'start', active: true },
-      { title: 'bio', active: false },
-      { title: 'portfolio', active: false }
-    ],
-    animationTitle: { 0: false, 1: false, 2: false },
-    animationProgressCircle: { 0: false, 1: false, 2: false }
+    progress,
+    animationTitle: progressToObj(progress),
+    animationProgressCircle: progressToObj(progress),
+    isFirst: true
   };
 
   componentWillReceiveProps(nextProps) {
+    if (this.state.isFirst) {
+      this.setAnimation();
+    } else {
+      this.setState(state => ({
+        progress: state.progress.map((p, i) => ({ ...p, active: i === nextProps.stage }))
+      }));
+    }
+
+    this.setState({ isFirst: false });
+  }
+
+  setAnimation() {
     this.state.progress.forEach((a, i) => {
       this.addAnimation('animationProgressCircle', i, i * 600);
-      this.addAnimation('animationTitle', i, 1400 + i * 600);
+      this.addAnimation('animationTitle', i, nPages * 600 + i * 600);
     });
   }
 
   onFinishAnimation(i) {
     const lastIndex = Object.keys(this.state.animationTitle).pop();
 
-    if (i === Number.parseInt(lastIndex) && this.state.animationTitle[lastIndex])
+    if (i === Number.parseInt(lastIndex, 10) && this.state.animationTitle[lastIndex]) {
       setTimeout(() => this.props.onFinishAnimation(), 500);
+    }
   }
   addAnimation(animation, i, time) {
     setTimeout(() => {
@@ -60,6 +72,7 @@ const fadeInAnimation = keyframes`${fadeIn}`;
 
 const SlidyText = styled.div`
   animation: 1.5s ${fadeInLeftAnimation};
+  font-size: 14px;
 `;
 const Wrapper = styled.div`
   display: flex;

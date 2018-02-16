@@ -5,7 +5,7 @@ import Helmet from 'react-helmet';
 import format from 'date-fns/format';
 import Img from 'gatsby-image';
 import Overdrive from 'react-overdrive';
-import Me from '../components/Me';
+import Me from '../containers/Me';
 
 import SEO from '../components/SEO';
 import ProjectHeader from '../components/ProjectHeader';

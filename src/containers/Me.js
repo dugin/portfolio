@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components';
 import Typist from 'react-typist';
 import { slideInUp } from 'react-animations';
 import * as palette from '../../config/Style';
-import Continue from './Continue';
+import Continue from '../components/Continue';
 
 export default class Me extends PureComponent {
   state = { titleDone: false, subtitleDone: false };
@@ -29,7 +29,7 @@ export default class Me extends PureComponent {
 
           {subtitleDone && <SlidySubText>Higly passionate developer</SlidySubText>}
         </Container>
-        {this.props.sideProgressDone && <Continue />}
+        {this.props.sideProgressDone && <Continue text="WHO AM I" />}
       </Wrapper>
     );
   }
@@ -54,9 +54,11 @@ const Wrapper = styled.div`
   flex: 1;
   background: url("${require('../../static/images/profile.png')}") no-repeat center center;
   background-size: auto;
-   flex-direction: column;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  min-height: 100vh;
+  position: relative;
 `;
 
 const Container = styled.div`

@@ -1,6 +1,7 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import styled, { injectGlobal } from 'styled-components';
+import { MainWrapper, Wrapper } from '../../config/Styles-Component';
 
 import SEO from '../components/SEO';
 import Footer from '../components/Footer';
@@ -26,6 +27,8 @@ injectGlobal`
     }
   }
   
+  
+  
 
   a {
     color: ${palette.LINK_COLOR};
@@ -38,15 +41,6 @@ injectGlobal`
     cursor: pointer;
     color: ${palette.LINK_HOVER_COLOR};
   }
-  
-  
- 
-`;
-
-const MainWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex: 1;
 `;
 
 const TemplateWrapper = props => {
